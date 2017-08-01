@@ -1280,7 +1280,9 @@ static int __init ovl_init(void)
 	int ret;
 
 	if (IS_ENABLED(CONFIG_OVERLAY_FS_V1)) {
+#ifdef CONFIG_OVERLAY_FS_V1
 		ret = register_filesystem(&ovl_v1_fs_type);
+#endif
 		if (ret)
 			return ret;
 	}
@@ -1293,7 +1295,11 @@ static void __exit ovl_exit(void)
 	unregister_filesystem(&ovl_fs_type);
 
 	if (IS_ENABLED(CONFIG_OVERLAY_FS_V1))
+	{
+#ifdef CONFIG_OVERLAY_FS_V1
 		unregister_filesystem(&ovl_v1_fs_type);
+#endif		
+	}
 }
 
 module_init(ovl_init);
